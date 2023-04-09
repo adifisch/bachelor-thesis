@@ -1,0 +1,6 @@
+data/faq-data
+data/unpack-faq
+data/dainas-dat
+src/best_model_state.bin
+fetchdata.py
+gbert-large
