@@ -6,6 +6,7 @@ from tqdm import tqdm
 from datasets import load_dataset
 from torch.utils.data import Dataset, DataLoader
 from transformers import BertModel, BertTokenizer
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 def load_custom_dataset(dataset, options, split):
     ds = load_dataset(dataset, options)
@@ -22,6 +23,7 @@ def load_custom_dataset(dataset, options, split):
     data_matches = df.iloc[:half_len,:]
     data_distinct = df.iloc[half_len:,:]
     data_distinct = data_distinct.reset_index(drop=True)
+    data_matches = data_matches.reset_index(drop=True)
     df1 = data_distinct.iloc[np.random.permutation(data_distinct.index)].reset_index(drop=True)
     data_distinct['answer'] = df1['answer']
     data_distinct['matching'] = 0
@@ -83,6 +85,12 @@ class QnADataset(Dataset):
             'targets': torch.tensor(target, dtype=torch.long)
         }
 
+def collate(batch):
+        #print(batch)
+        return batch.to(device, non_blocking=True)
+        #input_nodes, _, mfgs = batch
+        #return input_nodes, [block.to(device, non_blocking=True) for block in mfgs]
+    
 def create_data_loader(df, tokenizer, max_length, batch_size):
     ds = QnADataset(
         question=df.question.to_numpy(),
@@ -94,7 +102,9 @@ def create_data_loader(df, tokenizer, max_length, batch_size):
     return DataLoader(
         ds,
         batch_size = batch_size,
-        shuffle=True
+        shuffle=True,
+        num_workers=2
+        #,collate_fn=collate
     )
 
 def train_epoch(
