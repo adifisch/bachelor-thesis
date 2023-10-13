@@ -1,3 +1,6 @@
+"""
+Just unpacks the downloaded zip files
+"""
 from os import walk
 import tarfile
 from pathlib import Path
