@@ -1,6 +1,9 @@
 data/faq-data
 data/unpack-faq
 data/dainas-dat
+data/mfaq_dataset_train
 src/best_model_state.bin
 best_model_state.bin
 models
+cache
+__pycache__

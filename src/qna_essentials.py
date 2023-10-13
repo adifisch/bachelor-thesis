@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from torch import nn
 from tqdm import tqdm
+import datasets
 from datasets import load_dataset
 from torch.utils.data import Dataset, DataLoader
 from transformers import BertModel, BertTokenizer
@@ -92,13 +93,25 @@ def collate(batch):
         #return input_nodes, [block.to(device, non_blocking=True) for block in mfgs]
     
 def create_data_loader(df, tokenizer, max_length, batch_size):
-    ds = QnADataset(
-        question=df.question.to_numpy(),
-        answer=df.answer.to_numpy(),
-        targets=df.matching.to_numpy(),
-        tokenizer=tokenizer,
-        max_length=max_length
-    )
+    if isinstance(df, datasets.Dataset):
+        ds = QnADataset(
+            question=df['question'],
+            answer=df['answer'],
+            targets=df['matching'],
+            tokenizer=tokenizer,
+            max_length=max_length
+        )
+    else:
+        #question=df.question.to_numpy(),
+        #answer=df.answer.to_numpy(),
+        #targets=df.matching.to_numpy(),
+        ds = QnADataset(
+            question=df.question.to_numpy(),
+            answer=df.answer.to_numpy(),
+            targets=df.matching.to_numpy(),
+            tokenizer=tokenizer,
+            max_length=max_length
+        )
     return DataLoader(
         ds,
         batch_size = batch_size,

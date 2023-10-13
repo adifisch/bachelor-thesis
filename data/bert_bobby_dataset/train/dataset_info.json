@@ -1,0 +1,61 @@
+{
+  "builder_name": "csv",
+  "citation": "",
+  "config_name": "default",
+  "dataset_size": 7536420,
+  "description": "",
+  "download_checksums": {
+    "D:\\GitHub\\bachelor-thesis\\data\\bert_dataset.csv": {
+      "num_bytes": 7394299,
+      "checksum": "fa770bb30374fb6a6b2914279bfbbe0b33c398e9c0b03c4454bb02a5b863ece2"
+    }
+  },
+  "download_size": 7394299,
+  "features": {
+    "name": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "sourceName": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "sourceUrl": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "faqLabels": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "answer": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "question": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "matching": {
+      "dtype": "int64",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 14930719,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 7536420,
+      "num_examples": 7011,
+      "dataset_name": "csv"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}
